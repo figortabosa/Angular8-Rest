@@ -1,0 +1,25 @@
+<form>
+
+    <div class="form-group">
+      <h4>Login do Sistema</h4>
+    </div>
+
+    <div class="form-group">
+      <label for="user">E-mail :</label>
+      <input type="email" class="form-control" #email="ngModel" [(ngModel)]="usuario.login" id="login" name="login" required>
+      <div *ngIf="email.invalid" class="alert alert-danger">
+        Digite seu login!
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="senha">senha :</label>
+      <input type="password" class="form-control" #senha="ngModel" [(ngModel)]="usuario.senha" id="senha" name="senha"  required>
+      <div *ngIf="senha.invalid" class="alert alert-danger">
+        Digite a sua senha
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="email.invalid || senha.invalid" (click) = "login()">Acessar</button>
+</form>
