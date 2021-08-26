@@ -1,1 +1,16 @@
-<p>usuario works!</p>
+<table class="table">
+	<thead class="thread-dark">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Nome</th>
+			<th scope="col">Cpf</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let studant of students">
+			<td>{{studant.id}}</td>
+			<td>{{studant.nome}}</td>
+			<td>{{studant.cpf}}</td>
+		</tr>
+	</tbody>
+</table>
