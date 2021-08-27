@@ -22,4 +22,14 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
+
+  deleteUsuario(id:Number){
+    this.usuarioService.deleteUsuario(id).subscribe(data => {
+      console.log("retorno do metodo delete" + data);
+
+      this.usuarioService.getUsuarioList().subscribe(data => {
+      this.students = data;
+    });
+    })
+  }
 }
