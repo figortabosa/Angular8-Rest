@@ -12,6 +12,8 @@ export class UsuarioComponent implements OnInit {
 
   students: Observable<Usuario[]>;
 
+  nome: String;
+
   constructor(private usuarioService: UsuarioService) {
 
   }
@@ -23,13 +25,19 @@ export class UsuarioComponent implements OnInit {
   }
 
 
-  deleteUsuario(id:Number){
+  deleteUsuario(id: Number) {
     this.usuarioService.deleteUsuario(id).subscribe(data => {
       console.log("retorno do metodo delete" + data);
 
       this.usuarioService.getUsuarioList().subscribe(data => {
+        this.students = data;
+      });
+    })
+  }
+
+  consultarUser() {
+    this.usuarioService.consultarUser(this.nome).subscribe(data => {
       this.students = data;
-    });
     })
   }
 }
