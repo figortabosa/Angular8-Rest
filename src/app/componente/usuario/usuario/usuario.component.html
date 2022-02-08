@@ -2,13 +2,21 @@
 <br/>
 
 <form class="row g-3">
-  
+
   <div class="col-auto">
-   
+
     <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome" placeholder="Pesquisar por nome">
   </div>
   <div class="col-auto">
     <button type="button" (click)="consultarUser()" class="btn btn-primary mb-3">Buscar</button>
+
+    <button type="button" [routerLink]="['/usuarioAdd']" class="btn btn-success mb-3"
+	style="margin-left: 5px;">Novo usuário</button>
+
+  <button (click)="imprimeRelatorio()" type="button" class="btn btn-primary" style="margin-left: 5px;" data-toggle="modal" data-target="#myModal">
+    PDF
+  </button>
+
   </div>
 </form>
 
@@ -20,14 +28,35 @@
 			<th scope="col">ID</th>
 			<th scope="col">Nome</th>
 			<th scope="col">Cpf</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Editar</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let studant of students">
+		<tr *ngFor="let studant of students | paginate:{ itemsPerPage:5, currentPage : p, totalItems : total }; let i = index">
 			<td>{{studant.id}}</td>
 			<td>{{studant.nome}}</td>
 			<td>{{studant.cpf}}</td>
-			<td><button (click)="deleteUsuario(studant.id)" class="btn btn-primary">Delete</button></td>
+			<td><button (click)="deleteUsuario(studant.id,i)" class="btn btn-primary">Delete</button></td>
+      <td><button [routerLink]="['/usuarioAdd', studant.id]" class="btn btn-warning">Editar</button></td>
 		</tr>
 	</tbody>
 </table>
+<div class="text-center">
+  <pagination-controls (pageChange)="carregarPagina(p = $event);"
+  previousLabel = "voltar" nextLabel = "Avançar" responsive = "true"></pagination-controls>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="min-width: 90%; min-height: 90%; height: 90%;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <iframe id="pdf" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
